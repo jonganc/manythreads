@@ -1,0 +1,135 @@
+{
+  "name": "many-threads",
+  "version": "1.0.0",
+  "description": "Many Threads",
+  "author": "Jonathan Ganc <jon@manythreads.net>",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "lint": "yarn lint:ts && yarn lint:md && yarn lint:js && yarn lint:css",
+    "lint:js": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
+    "lint:md": "remark .",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:scss": "stylelint src/**/*.scss --syntax scss",
+    "lint:ts": "tslint \"./src/**/*.ts\" \"./src/**/*.tsx\"",
+    "ts:test": "tsc --noEmit",
+    "ts:watch": "tsc --noEmit --watch",
+    "test": "yarn run lint && jest",
+    "test:watch": "jest --watch",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
+    "graphql-types": "gql-gen --url http://localhost:8000/___graphql --template typescript --out ./src/common/graphql-types.d.ts",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "generate": "plop --plopfile ./generators/plopfile.js"
+  },
+  "dependencies": {
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
+    "classnames": "^2.2.6",
+    "color": "^3.0.0",
+    "gatsby": "next",
+    "gatsby-plugin-feed": "next",
+    "gatsby-plugin-google-analytics": "next",
+    "gatsby-plugin-offline": "next",
+    "gatsby-plugin-react-helmet": "next",
+    "gatsby-plugin-sass": "next",
+    "gatsby-plugin-sharp": "next",
+    "gatsby-plugin-typescript": "next",
+    "gatsby-remark-copy-linked-files": "next",
+    "gatsby-remark-images": "next",
+    "gatsby-remark-prismjs": "next",
+    "gatsby-remark-responsive-iframe": "next",
+    "gatsby-remark-smartypants": "next",
+    "gatsby-source-filesystem": "next",
+    "gatsby-transformer-remark": "next",
+    "gatsby-transformer-sharp": "next",
+    "jss": "9.8.x",
+    "lodash": "4.17.x",
+    "node-sass": "4.9.x",
+    "prismjs": "1.15.x",
+    "react": "16.4.x",
+    "react-dom": "16.4.x",
+    "react-helmet": "5.2.x",
+    "react-jss": "8.6.x",
+    "react-redux": "5.0.x",
+    "react-router-dom": "4.3.x",
+    "redux": "4.0.x",
+    "typeface-roboto": "^0.0.54",
+    "verror": "1.10.x"
+  },
+  "devDependencies": {
+    "@types/classnames": "2.2.x",
+    "@types/color": "^3.0.0",
+    "@types/history": "^4.7.0",
+    "@types/jest": "23.x.x",
+    "@types/jss": "9.5.x",
+    "@types/lodash": "4.14.x",
+    "@types/react": "16.4.x",
+    "@types/react-dom": "16.0.x",
+    "@types/react-helmet": "5.0.x",
+    "@types/react-redux": "6.0.x",
+    "@types/react-router": "4.0.x",
+    "@types/react-router-dom": "^4.3.0",
+    "@types/verror": "^1.10.3",
+    "enzyme": "3.0.x",
+    "eslint": "4.19.x",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.x",
+    "eslint-plugin-react": "^7.11.1",
+    "gh-pages": "1.2.x",
+    "graphql": "0.13.x",
+    "graphql-code-generator": "0.10.x",
+    "graphql-codegen-typescript-template": "0.10.x",
+    "jest": "^23.5.0",
+    "plop": "1.7.x",
+    "prettier": "1.14.x",
+    "remark-cli": "3.0.x",
+    "remark-preset-lint-recommended": "2.0.x",
+    "stylelint": "8.4.x",
+    "stylelint-config-standard": "18.2.x",
+    "ts-jest": "22.4.x",
+    "tslint": "5.11.x",
+    "typescript": "3.0.x"
+  },
+  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "keywords": [
+    "manythreads"
+  ],
+  "main": "n/a",
+  "jest": {
+    "globals": {
+      "__LINK_PREFIX__": "",
+      "__PREFIX_LINKS__": ""
+    },
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/templates/",
+      "/.cache"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "html"
+    ],
+    "setupTestFrameworkScriptFile": "./jestSetupTestFrameworkScript.js"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard"
+  }
+}

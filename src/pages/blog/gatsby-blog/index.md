@@ -1,0 +1,29 @@
+---
+title: Typescript blog
+date: "2018-08-31T20:00:00.000Z"
+---
+
+This is the first post of my new blog. I will discuss web technologies that I find interesting.
+
+My first topic is this web site itself.
+
+This is my first post on my new fake blog! How exciting!
+
+```typescript
+const f = 1;
+```
+
+I'm sure I'll write a lot more interesting things in the future.
+
+Oh, and here's a great quote from this Wikipedia on
+[salted duck eggs](http://en.wikipedia.org/wiki/Salted_duck_egg).
+
+> A salted duck egg is a Chinese preserved food product made by soaking duck
+> eggs in brine, or packing each egg in damp, salted charcoal. In Asian
+> supermarkets, these eggs are sometimes sold covered in a thick layer of salted
+> charcoal paste. The eggs may also be sold with the salted paste removed,
+> wrapped in plastic, and vacuum packed. From the salt curing process, the
+> salted duck eggs have a briny aroma, a gelatin-like egg white and a
+> firm-textured, round yolk that is bright orange-red in color.
+
+![Chinese Salty Egg](./salty_egg.jpg)
