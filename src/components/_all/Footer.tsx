@@ -36,6 +36,11 @@ const styles = (theme: Theme) =>
       marginTop: 20,
       backgroundColor: footerColor /* colors.secondary1[4]*/,
       color: 'white',
+
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
     },
     footerContent: theme.mixins.gutters({
       paddingTop: 20,
