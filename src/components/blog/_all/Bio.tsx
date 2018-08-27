@@ -17,6 +17,7 @@ const styles = (theme: Theme) => {
       display: 'flex',
       alignItems: 'center',
       marginBottom: spacing * 2,
+      maxWidth: 650,
     },
     profilePic: {
       borderRadius: '50%',
@@ -38,9 +39,8 @@ class Bio extends React.Component<WithStyles<typeof styles>> {
           className={classes.profilePic}
         />
         <Typography variant="subheading">
-          A blog about web development, with a back end focus, from
-          the mind of <strong>Jonathan Ganc</strong>,<br /> a web
-          developer living in Boston, MA
+          A blog about web development, with a back end focus, written
+          by <strong>Jonathan Ganc</strong>
         </Typography>
       </div>
     );

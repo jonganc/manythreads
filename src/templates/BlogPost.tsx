@@ -59,51 +59,46 @@ interface BlogPostProps extends PageProps, WithStyles<typeof styles> {
   pageContext: BlogContext;
 }
 
-class BlogPost extends React.Component<BlogPostProps> {
-  render() {
-    const post = this.props.data.markdownRemark;
-    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
-    const { previous, next } = this.props.pageContext;
+const BlogPost: React.SFC<BlogPostProps> = props => {
+  const post = props.data.markdownRemark;
+  const siteTitle = get(props, 'data.site.siteMetadata.title');
+  const { previous, next } = props.pageContext;
 
-    if (post.frontmatter == undefined) {
-      throw new Error('Postmatter undefined');
-    }
-
-    const { classes } = this.props;
-
-    return (
-      <BlogContent>
-        <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />{' '}
-        <div className={classes.root}>
-          <Typography variant="title" gutterBottom>
-            <InvisibleLink
-              to={'/'}
-              className={classes.topLinkToIndex}
-            >
-              <div className="leftChevron">&lsaquo;</div>
-              <div className="text">To Index</div>
-            </InvisibleLink>
-          </Typography>
-          <Typography variant="display2" gutterBottom>
-            {post.frontmatter.title}
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            {post.frontmatter.date}
-          </Typography>
-          <Typography
-            variant="body1"
-            dangerouslySetInnerHTML={{ __html: post.html! }}
-            gutterBottom
-          />
-          <hr />
-          <Bio />
-
-          <Navigation next={next} previous={previous} />
-        </div>
-      </BlogContent>
-    );
+  if (post.frontmatter == undefined) {
+    throw new Error('Postmatter undefined');
   }
-}
+
+  const { classes } = props;
+
+  return (
+    <BlogContent>
+      <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />{' '}
+      <div className={classes.root}>
+        <Typography variant="title" gutterBottom>
+          <InvisibleLink to={'/'} className={classes.topLinkToIndex}>
+            <div className="leftChevron">&lsaquo;</div>
+            <div className="text">Index</div>
+          </InvisibleLink>
+        </Typography>
+        <Typography variant="display2" gutterBottom>
+          {post.frontmatter.title}
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          {post.frontmatter.date}
+        </Typography>
+        <Typography
+          variant="body1"
+          dangerouslySetInnerHTML={{ __html: post.html! }}
+          gutterBottom
+        />
+        <hr />
+        <Bio />
+
+        <Navigation next={next} previous={previous} />
+      </div>
+    </BlogContent>
+  );
+};
 
 export default withStyles(styles)(BlogPost);
 

@@ -149,7 +149,7 @@ class Contact extends React.Component<ContactProps, ContactState> {
         console.error(`Malformed AWS response: ${response.body}`);
         this.setState({
           status: Status.Input,
-          errorMessage: 'Bad server response',
+          errorMessage: ['Bad server response'],
         });
       }
       return;

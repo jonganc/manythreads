@@ -62,7 +62,7 @@ class BlogIndex extends React.Component<
         >
           <Helmet title={siteTitle} />
           <Typography variant="display2" gutterBottom>
-            Many Threads Blog
+            Blog
           </Typography>
           <Bio />
           {posts.map(({ node }) => {
