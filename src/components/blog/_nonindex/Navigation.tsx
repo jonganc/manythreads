@@ -4,11 +4,11 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
-import { GatsbyLinkProps } from 'gatsby';
 import React, { SFC } from 'react';
 
-import InvisibleLink from '../../_common/InvisibleLink';
 import { MarkdownRemark } from '../../../common/graphql-types';
+import { GatsbyLinkProps } from '../../_common/Link';
+import InvisibleLink from '../../_common/InvisibleLink';
 
 const styles = createStyles({
   root: {

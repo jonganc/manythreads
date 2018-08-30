@@ -5,11 +5,10 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { GatsbyLinkProps, Link } from 'gatsby';
 import l_ from 'lodash';
 import React from 'react';
 
-import { Omit } from '../../common/types';
+import Link, { GatsbyLinkProps } from '../_common/Link';
 import { properties } from './_common/linkCommon';
 
 type AllowProperty = keyof (typeof properties);
@@ -22,25 +21,22 @@ type Styles = {
 const InvisibleLinkInner: React.SFC<
   Overwrite<GatsbyLinkProps, WithStyles<Styles>>
 > = props => {
-  const { classes, className, innerRef, ...rest } = props;
+  const { classes, className, ...rest } = props;
   return (
     <Link
       className={classnames(classes.root, className)}
       // I think the type of Link is out of date. Hence, the type casting
-      innerRef={innerRef as any}
       {...rest}
     />
   );
 };
 
 const InvisibleLink: React.SFC<
-  Omit<GatsbyLinkProps, 'innerRef'> & {
-    // not sure if these are all allowed but... what the heck
-    innerRef?: React.Ref<any> | React.RefObject<any>;
+  GatsbyLinkProps & {
     allowProperty?: AllowProperty | AllowProperty[];
   }
 > = props => {
-  const { allowProperty, innerRef, ...rest } = props;
+  const { allowProperty, ...rest } = props;
 
   const allowPropertyArr =
     allowProperty === undefined ? [] : l_.castArray(allowProperty);
@@ -58,7 +54,7 @@ const InvisibleLink: React.SFC<
     InvisibleLinkInner,
   );
 
-  return <InvisibleLinkInnerClass innerRef={innerRef} {...rest} />;
+  return <InvisibleLinkInnerClass {...rest} />;
 };
 
 export default InvisibleLink;
