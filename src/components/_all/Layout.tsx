@@ -4,7 +4,6 @@ import React from 'react';
 
 import Header from './Header';
 import WithFooter from './WithFooter';
-import withMuiRoot from './withMuiRoot';
 
 const Layout: React.SFC<{ className?: string }> = props => (
   <div className={props.className}>
@@ -15,4 +14,4 @@ const Layout: React.SFC<{ className?: string }> = props => (
   </div>
 );
 
-export default withMuiRoot(Layout);
+export default Layout;
