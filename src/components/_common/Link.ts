@@ -4,23 +4,24 @@
 
 // adapted from module gatsby-link
 
-import { LinkProps } from '@reach/router';
-import { Link as LinkOrig } from 'gatsby';
+import {
+  GatsbyLinkProps as GatsbyLinkPropsOrig,
+  Link as LinkOrig,
+} from 'gatsby';
 import React, { Ref } from 'react';
 
 import { Omit } from '../../common/types';
 
-export interface GatsbyLinkProps extends Omit<LinkProps<any>, 'ref'> {
-  activeClassName?: string;
-  activeStyle?: object;
+export interface GatsbyLinkProps<TState = {}>
+  extends Omit<GatsbyLinkPropsOrig<TState>, 'ref' | 'innerRef'> {
   innerRef?: Ref<HTMLAnchorElement>;
-  to: string;
   // not 100% sure about this but... I think it's right...?
-  ref?: Ref<GatsbyLinkClass>;
+  ref?: Ref<GatsbyLinkClass<TState>>;
 }
 
-declare class GatsbyLinkClass extends React.Component<
-  GatsbyLinkProps,
+// this should really just be `declare class GatsbyLinkClass...` but otherwise gatsby has issues
+class GatsbyLinkClass<TState = {}> extends React.Component<
+  GatsbyLinkProps<TState>,
   any
 > {}
 

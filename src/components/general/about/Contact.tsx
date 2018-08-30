@@ -227,7 +227,7 @@ class Contact extends React.Component<ContactProps, ContactState> {
             label="TheBomb"
             margin="normal"
             className={classes.singlelineText}
-            inputProps={{ tabIndex: '-1', autoComplete: 'off' }}
+            inputProps={{ tabIndex: -1, autoComplete: 'off' }}
             value={this.state.form.theBomb}
             onChange={this.handleChange('theBomb')}
             style={{ display: 'none' }}
