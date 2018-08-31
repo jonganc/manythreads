@@ -5,12 +5,12 @@ import { JssProvider } from 'react-jss';
 /* eslint-disable import/no-unresolved */
 import getMuiContext from './src/common/getMuiContext';
 import MuiRoot from './src/components/_all/MuiRoot';
+import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
 
-import wrapWithProvider from './wrapWithProvider';
-
-// redux: from https://github.com/gatsbyjs/gatsby/blob/master/examples/using-redux/gatsby-ssr.js
-export const wrapRootElement = wrapWithProvider;
+export const wrapRootElement = ({ element }) => (
+  <ReduxProvider>{element}</ReduxProvider>
+);
 
 // material UI: adapted from https://github.com/mui-org/material-ui/tree/master/examples/gatsby
 

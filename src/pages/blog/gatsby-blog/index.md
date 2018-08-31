@@ -224,9 +224,13 @@ export default withStyles(styles)(myComponent)
 
 ## Server-side rendering
 
-Getting server-side rendering working (i.e. so the initial page load from the server is an html file, then future page loads use js) was a bit of a pain. First of all, I had no experience with it. However, the example for Gatsby provided by material UI is a bit fragile and/or not yet fully set up Gatsby v2.
+Getting server-side rendering working (i.e. so the initial page load from the server is an html file, then future page loads use JavaScript) was a bit of a pain. First of all, I had no experience with it. However, the example for Gatsby provided by material UI is a bit fragile and/or not yet fully set up for Gatsby v2.
 
-The idea 
+The main moving component is the CSS-in-JS library JSS. Components have to register their styles with a Material UI provider `MuiThemeProvider` that knows the theme and that takes of making the style sheets (see my [MuiRoot.tsx](https://github.com/jonganc/manythreads/blob/master/src/components/_all/withMuiRoot.tsx)). 
+
+This has to be done is a particular way on the server side, using the `JssProvider` component, which as far as I can tell, provides a way of turning the accumulated styles into a an appropriate `<style>` tag.
+
+Material UI uses JSS under the covers and to get things working, there are a number variables that need to be passed around.
 
 ## To improve
 
