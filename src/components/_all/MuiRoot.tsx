@@ -39,6 +39,7 @@ export default class MuiRoot extends React.Component<
   }
 
   render() {
+    console.log('muiContext', this.muiContext);
     // MuiThemeProvider makes the theme available down the React tree thanks to React context.
     return (
       <MuiThemeProvider
