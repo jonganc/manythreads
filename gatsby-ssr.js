@@ -4,9 +4,14 @@ import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
 import getMuiContext from './src/common/getMuiContext';
+import Layout from './src/components/_all/Layout';
 import MuiRoot from './src/components/_all/MuiRoot';
 import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
+
+export const wrapPageElement = ({ element }) => (
+  <Layout>{element}</Layout>
+);
 
 export const wrapRootElement = ({ element }) => (
   <ReduxProvider>{element}</ReduxProvider>

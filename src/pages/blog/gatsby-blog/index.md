@@ -222,15 +222,15 @@ const myComponent: React.SFC<
 export default withStyles(styles)(myComponent)
 ```
 
-## Server-side rendering
+## Server-side rendering (SSR)
 
-Getting server-side rendering working (i.e. so the initial page load from the server is an html file, then future page loads use JavaScript) was a bit of a pain. First of all, I had no experience with it. However, the example for Gatsby provided by material UI is a bit fragile and/or not yet fully set up for Gatsby v2.
+Getting server-side rendering (SSR) working (i.e. so the initial page load from the server is an html file, then future page loads use JavaScript) was a bit of a pain. First of all, I had no experience with it. However, the example for Gatsby provided by material UI is a bit fragile and/or not yet fully set up for Gatsby v2.
 
-The main moving component is the CSS-in-JS library JSS. Components have to register their styles with a Material UI provider `MuiThemeProvider` that knows the theme and that takes of making the style sheets (see my [MuiRoot.tsx](https://github.com/jonganc/manythreads/blob/master/src/components/_all/withMuiRoot.tsx)). 
+The main moving component is the CSS-in-JS library JSS. Components have to register their styles with a Material UI provider `MuiThemeProvider` that knows the theme and that handles the style sheet entries (see my [MuiRoot.tsx](https://github.com/jonganc/manythreads/blob/dd941e761cd474a37fc04b944ad279558a17be64/src/components/_all/withMuiRoot.tsx#L44)). On the server side, we apparently need an extra `JssProvider` component, which provides a way of turning the accumulated styles into a string `<style>` tag, as far as I can tell. For the SSR to work properly, a particular construct (the "sheets manager" needs to be the same in both the `MuiThemeProvider` and the `JssProvider`). Thus, I changed the Material UI example so that this property is immediately and directly passed in the `MuiThemeProvider` component, rather than passing it in a property and kind-of hoping it makes it to the correct compoent.
 
-This has to be done is a particular way on the server side, using the `JssProvider` component, which as far as I can tell, provides a way of turning the accumulated styles into a an appropriate `<style>` tag.
+It was a bit of a pain, but it works now!
 
-Material UI uses JSS under the covers and to get things working, there are a number variables that need to be passed around.
+(If you want to see the server-side rendering in action, disable javascript, e.g. [via Chrome developer tools](https://stackoverflow.com/a/13405409) and reload [my homepage](https://manythreads.net). It should look exactly the same as when javascript is enabled.)
 
 ## To improve
 

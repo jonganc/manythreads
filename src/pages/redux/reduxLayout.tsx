@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
-import Link from 'gatsby';
+import Link from '../../components/_common/Link';
 
 /* for ease, we use any to deal with typing issues at the moment */
 const Counter = ({ count, increment }: any) => (

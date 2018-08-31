@@ -6,9 +6,8 @@ import {
   WithStyles,
   withStyles,
 } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import React from 'react';
-
-import Layout from '../../_all/Layout';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -32,9 +31,9 @@ const BlogContent: React.SFC<
   const { className, classes, children } = props;
 
   return (
-    <Layout className={className}>
-      <div className={classes.blogRoot}>{children}</div>
-    </Layout>
+    <div className={classNames(classes.blogRoot, className)}>
+      {children}
+    </div>
   );
 };
 
