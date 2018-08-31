@@ -222,6 +222,12 @@ const myComponent: React.SFC<
 export default withStyles(styles)(myComponent)
 ```
 
+## Server-side rendering
+
+Getting server-side rendering working (i.e. so the initial page load from the server is an html file, then future page loads use js) was a bit of a pain. First of all, I had no experience with it. However, the example for Gatsby provided by material UI is a bit fragile and/or not yet fully set up Gatsby v2.
+
+The idea 
+
 ## To improve
 
 - I would like to use setup comments using something like [Staticman](https://staticman.net/).
