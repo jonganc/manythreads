@@ -1,9 +1,10 @@
+import { createGenerateClassName } from '@material-ui/core/styles';
+import { SheetsRegistry } from 'jss';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
-import getMuiContext from './src/common/getMuiContext';
 import Layout from './src/components/_all/Layout';
 import MuiRoot from './src/components/_all/MuiRoot';
 import ReduxProvider from './src/components/_all/ReduxProvider';
@@ -24,19 +25,14 @@ export const replaceRenderer = ({
   replaceBodyHTMLString,
   setHeadComponents,
 }) => {
-  // Get the context of the page to collected side effects.
-  const muiContext = getMuiContext();
+  const sheetsRegistry = new SheetsRegistry();
 
   const bodyHtml = renderToString(
     <JssProvider
-      registry={muiContext.sheetsRegistry}
-      generateClassName={muiContext.generateClassName}
+      registry={sheetsRegistry}
+      generateClassName={createGenerateClassName()}
     >
-      <MuiRoot muiContext={muiContext}>
-        {React.cloneElement(bodyComponent, {
-          muiContext,
-        })}
-      </MuiRoot>
+      <MuiRoot sheetsManager={new Map()}>{bodyComponent}</MuiRoot>
     </JssProvider>,
   );
 
@@ -49,7 +45,7 @@ export const replaceRenderer = ({
       key="server-side-jss"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
-        __html: muiContext.sheetsRegistry.toString(),
+        __html: sheetsRegistry.toString(),
       }}
     />,
   ]);

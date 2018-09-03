@@ -7,19 +7,20 @@ import {
 import Typography, {
   TypographyProps,
 } from '@material-ui/core/Typography';
+import { graphql } from 'gatsby';
 import { get } from 'lodash';
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import { Site } from '../../../common/graphql-types';
-import { PageProps } from '../../../common/types';
-import Link from '../../_common/Link';
-import Contact from './Contact';
-import SkillsItem from './SkillsItem';
-import TwoListCols from './TwoListCols';
+import { Site } from '../common/graphql-types';
+import { PageProps } from '../common/types';
+import Link from '../components/_common/Link';
+import Contact from '../components/general/about/Contact';
+import SkillsItem from '../components/general/about/SkillsItem';
+import TwoListCols from '../components/general/about/TwoListCols';
 
 // tslint:disable-next-line:no-var-requires
-const profilePic = require('../../_common/manythreads-jonathan_ganc-bio-small.jpg');
+const profilePic = require('../components/_common/manythreads-jonathan_ganc-bio-small.jpg');
 
 const styles = (theme: Theme) => {
   const spacing = theme.spacing.unit;
@@ -149,3 +150,14 @@ const About: React.SFC<
 };
 
 export default withStyles(styles, { withTheme: true })(About);
+
+export const pageQuery = graphql`
+  query TestQuery {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
+  }
+`;

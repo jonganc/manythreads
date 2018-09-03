@@ -3,39 +3,34 @@
 /* This adds the appropriate context for material-ui */
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import MuiThemeProvider, {
+  MuiThemeProviderProps,
+} from '@material-ui/core/styles/MuiThemeProvider';
 import React from 'react';
 
-import getMuiContext, {
-  MuiContext,
-} from '../../common/getMuiContext';
+import muiTheme from '../../common/muiTheme';
 
-interface MuiContextProps {
-  muiContext?: MuiContext;
+type SheetsManager = NonNullable<
+  MuiThemeProviderProps['sheetsManager']
+>;
+
+interface MuiRootProps {
+  sheetsManager?: SheetsManager;
 }
 
-export default class MuiRoot extends React.Component<
-  MuiContextProps
-> {
-  private muiContext: MuiContext;
-
-  public constructor(props: MuiContextProps) {
+export default class MuiRoot extends React.Component<MuiRootProps> {
+  public constructor(props: MuiRootProps) {
     super(props);
-
-    this.muiContext =
-      props.muiContext !== undefined
-        ? props.muiContext!
-        : getMuiContext();
   }
 
   render() {
     // MuiThemeProvider makes the theme available down the React tree thanks to React context.
     return (
       <MuiThemeProvider
-        theme={this.muiContext.theme}
-        sheetsManager={this.muiContext.sheetsManager}
+        theme={muiTheme}
+        sheetsManager={this.props.sheetsManager}
       >
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        {/* CssBaseline kickstarts an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         {this.props.children}
       </MuiThemeProvider>

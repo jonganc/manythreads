@@ -7,6 +7,7 @@ import {
   WithStyles,
 } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import { push } from 'gatsby';
 import React, { SFC } from 'react';
 
 import InvisibleLink from '../_common/InvisibleLink';
@@ -52,8 +53,8 @@ const Header: SFC<WithStyles<typeof styles>> = props => {
         <Button
           size="large"
           color="primary"
-          href="/about"
           className={classes.aboutLink}
+          onClick={() => push('/about')}
         >
           About
         </Button>
