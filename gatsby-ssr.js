@@ -28,11 +28,10 @@ export const replaceRenderer = ({
   const sheetsRegistry = new SheetsRegistry();
 
   const bodyHtml = renderToString(
-    <JssProvider
-      registry={sheetsRegistry}
-      generateClassName={createGenerateClassName()}
-    >
-      <MuiRoot sheetsManager={new Map()}>{bodyComponent}</MuiRoot>
+    <JssProvider registry={sheetsRegistry}>
+      <JssProvider generateClassName={createGenerateClassName()}>
+        <MuiRoot sheetsManager={new Map()}>{bodyComponent}</MuiRoot>
+      </JssProvider>
     </JssProvider>,
   );
 
