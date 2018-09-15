@@ -127,7 +127,7 @@ class Contact extends React.Component<ContactProps, ContactState> {
     });
 
     const response = await fetch(
-      'https://fc33a72bu0.execute-api.us-east-1.amazonaws.com/dev/contact',
+      'https://hgqwnmfws8.execute-api.us-east-1.amazonaws.com/production',
       {
         method: 'POST',
         headers: {
