@@ -1,4 +1,6 @@
+import { createGenerateClassName } from '@material-ui/core/styles';
 import React from 'react';
+import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
 import Layout from './src/components/_all/Layout';
@@ -22,7 +24,9 @@ export const wrapPageElement = ({ element }) => (
 const sheetsManager = new Map();
 
 export const wrapRootElement = ({ element }) => (
-  <MuiRoot sheetsManager={sheetsManager}>
-    <ReduxProvider>{element}</ReduxProvider>
-  </MuiRoot>
+  <JssProvider generateClassName={createGenerateClassName()}>
+    <MuiRoot sheetsManager={sheetsManager}>
+      <ReduxProvider>{element}</ReduxProvider>
+    </MuiRoot>
+  </JssProvider>
 );
