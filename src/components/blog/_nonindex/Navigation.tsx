@@ -7,8 +7,8 @@ import {
 import React, { SFC } from 'react';
 
 import { MarkdownRemark } from '../../../common/graphql-types';
-import { GatsbyLinkProps } from '../../_common/Link';
 import InvisibleLink from '../../_common/InvisibleLink';
+import { GatsbyLinkProps } from '../../_common/Link';
 
 const styles = createStyles({
   root: {

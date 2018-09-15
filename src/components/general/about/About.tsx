@@ -87,9 +87,6 @@ const About: React.SFC<
             <Typography variant="display1" gutterBottom>
               General
             </Typography>
-            {function f() {}}
-            <Link to="/redux/a">Link here</Link>
-            <Link to="/testpage">Link here</Link>
             <div className={classes.aboutWrapper}>
               <img
                 src={profilePic}
