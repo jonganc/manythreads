@@ -25,7 +25,10 @@ const sheetsManager = new Map();
 const generateClassName = createGenerateClassName();
 
 export const wrapRootElement = ({ element }) => (
-  <JssProvider generateClassName={generateClassName}>
+  <JssProvider
+    generateClassName={generateClassName}
+    key={Math.random()}
+  >
     <MuiRoot sheetsManager={sheetsManager}>
       <ReduxProvider>{element}</ReduxProvider>
     </MuiRoot>
