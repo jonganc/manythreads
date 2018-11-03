@@ -20,17 +20,26 @@ export const wrapPageElement = ({ element }) => (
   <Layout>{element}</Layout>
 );
 
+/* eslint-disable no-underscore-dangle */
 export const wrapRootElement = ({ element }) => {
   // we use a common sheetsManager for all pages
-  const generateClassName = createGenerateClassName();
-  const sheetsManager = new Map();
+  if (!global.__INIT_MATERIAL_UI__) {
+    global.__INIT_MATERIAL_UI__ = {
+      generateClassName: createGenerateClassName(),
+      sheetsManager: new Map(),
+    };
+  }
 
   return (
     <JssProvider
-      generateClassName={generateClassName}
+      generateClassName={
+        global.__INIT_MATERIAL_UI__.generateClassName
+      }
       key={Math.random()}
     >
-      <MuiRoot sheetsManager={sheetsManager}>
+      <MuiRoot
+        sheetsManager={global.__INIT_MATERIAL_UI__.sheetsManager}
+      >
         <ReduxProvider>{element}</ReduxProvider>
       </MuiRoot>
     </JssProvider>
