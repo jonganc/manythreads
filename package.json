@@ -61,6 +61,7 @@
   "devDependencies": {
     "@types/classnames": "2.2.x",
     "@types/color": "^3.0.0",
+    "@types/graphql": "^14.0.3",
     "@types/history": "^4.7.0",
     "@types/jest": "23.x.x",
     "@types/jss": "9.5.x",
@@ -68,6 +69,7 @@
     "@types/react": "16.4.x",
     "@types/react-dom": "16.0.x",
     "@types/react-helmet": "5.0.x",
+    "@types/react-jss": "^8.6.0",
     "@types/react-redux": "6.0.x",
     "@types/react-router": "4.4.x",
     "@types/react-router-dom": "^4.3.0",

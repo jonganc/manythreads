@@ -16,6 +16,7 @@ import {
   Site,
 } from '../common/graphql-types';
 import { PageProps } from '../common/types';
+import Layout from '../components/_all/Layout';
 import InvisibleLink from '../components/_common/InvisibleLink';
 import Bio from '../components/blog/_all/Bio';
 import BlogContent from '../components/blog/_all/BlogContent';
@@ -53,59 +54,61 @@ class BlogIndex extends React.Component<
       v !== null) as <T>(edge: T | null) => edge is T);
 
     return (
-      <BlogContent>
-        <div
-          style={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-        >
-          <Helmet title={siteTitle} />
-          <Typography variant="display2" gutterBottom>
-            Blog
-          </Typography>
-          <Bio />
-          {posts.map(({ node }) => {
-            if (
-              node == undefined ||
-              node.frontmatter == undefined ||
-              node.fields == undefined
-            ) {
-              throw new VError(
-                { info: { node } },
-                'Undefined node or subfields',
+      <Layout>
+        <BlogContent>
+          <div
+            style={{
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+          >
+            <Helmet title={siteTitle} />
+            <Typography variant="display2" gutterBottom>
+              Blog
+            </Typography>
+            <Bio />
+            {posts.map(({ node }) => {
+              if (
+                node == undefined ||
+                node.frontmatter == undefined ||
+                node.fields == undefined
+              ) {
+                throw new VError(
+                  { info: { node } },
+                  'Undefined node or subfields',
+                );
+              }
+              const slug = defaultTo(node.fields.slug, '');
+              const title = node.frontmatter.title || slug;
+              return (
+                <div key={slug} className={classes.post}>
+                  <Typography variant="headline">
+                    <InvisibleLink
+                      className={classes.postTitle}
+                      to={slug}
+                      allowProperty={'color'}
+                    >
+                      {title}
+                    </InvisibleLink>
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    <span className={classes.date}>
+                      {node.frontmatter.date}
+                    </span>
+                  </Typography>
+                  <Typography
+                    variant="subheading"
+                    gutterBottom
+                    dangerouslySetInnerHTML={{
+                      __html: defaultTo(node.excerpt, ''),
+                    }}
+                  />
+                </div>
               );
-            }
-            const slug = defaultTo(node.fields.slug, '');
-            const title = node.frontmatter.title || slug;
-            return (
-              <div key={slug} className={classes.post}>
-                <Typography variant="headline">
-                  <InvisibleLink
-                    className={classes.postTitle}
-                    to={slug}
-                    allowProperty={'color'}
-                  >
-                    {title}
-                  </InvisibleLink>
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  <span className={classes.date}>
-                    {node.frontmatter.date}
-                  </span>
-                </Typography>
-                <Typography
-                  variant="subheading"
-                  gutterBottom
-                  dangerouslySetInnerHTML={{
-                    __html: defaultTo(node.excerpt, ''),
-                  }}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </BlogContent>
+            })}
+          </div>
+        </BlogContent>
+      </Layout>
     );
   }
 }

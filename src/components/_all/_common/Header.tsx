@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { push } from 'gatsby';
 import React, { SFC } from 'react';
 
-import InvisibleLink from '../_common/InvisibleLink';
+import InvisibleLink from '../../_common/InvisibleLink';
 
 const styles = (theme: Theme) =>
   createStyles({
