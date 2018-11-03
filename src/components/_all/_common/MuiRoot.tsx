@@ -8,7 +8,7 @@ import MuiThemeProvider, {
 } from '@material-ui/core/styles/MuiThemeProvider';
 import React from 'react';
 
-import muiTheme from '../../common/muiTheme';
+import muiTheme from '../../../common/muiTheme';
 
 export type SheetsManager = NonNullable<
   MuiThemeProviderProps['sheetsManager']

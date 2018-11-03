@@ -5,15 +5,12 @@ import { renderToString } from 'react-dom/server';
 import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
-import Layout from './src/components/_all/Layout';
 import MuiRoot from './src/components/_all/MuiRoot';
 import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
 
-export const wrapPageElement = ({ element }) => (
-  <ReduxProvider>
-    <Layout>{element}</Layout>
-  </ReduxProvider>
+export const wrapRootElement = ({ element }) => (
+  <ReduxProvider>{element}</ReduxProvider>
 );
 
 // material UI: adapted from https://github.com/mui-org/material-ui/tree/master/examples/gatsby
