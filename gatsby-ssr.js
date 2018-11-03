@@ -11,11 +11,9 @@ import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
 
 export const wrapPageElement = ({ element }) => (
-  <Layout>{element}</Layout>
-);
-
-export const wrapRootElement = ({ element }) => (
-  <ReduxProvider>{element}</ReduxProvider>
+  <ReduxProvider>
+    <Layout>{element}</Layout>
+  </ReduxProvider>
 );
 
 // material UI: adapted from https://github.com/mui-org/material-ui/tree/master/examples/gatsby

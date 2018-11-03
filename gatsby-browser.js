@@ -1,32 +1,34 @@
-import { createGenerateClassName } from '@material-ui/core/styles';
-import React from 'react';
-import { JssProvider } from 'react-jss';
+// Diagnose errors
 
-/* eslint-disable import/no-unresolved */
-import Layout from './src/components/_all/Layout';
-import MuiRoot from './src/components/_all/MuiRoot';
-import ReduxProvider from './src/components/_all/ReduxProvider';
-/* eslint-enable import/no-unresolved */
+// import { createGenerateClassName } from '@material-ui/core/styles';
+// import React from 'react';
+// import { JssProvider } from 'react-jss';
 
-// gatsby-plugin-jss/src/gatsby-browser.js
-export const onInitialClientRender = () => {
-  const ssStyles = window.document.getElementById(`jss-server-side`);
-  if (ssStyles) {
-    ssStyles.parentNode.removeChild(ssStyles);
-  }
-};
+// /* eslint-disable import/no-unresolved */
+// import Layout from './src/components/_all/Layout';
+// import MuiRoot from './src/components/_all/MuiRoot';
+// import ReduxProvider from './src/components/_all/ReduxProvider';
+// /* eslint-enable import/no-unresolved */
 
-export const wrapPageElement = ({ element }) => (
-  <Layout>{element}</Layout>
-);
+// // gatsby-plugin-jss/src/gatsby-browser.js
+// export const onInitialClientRender = () => {
+//   const ssStyles = window.document.getElementById(`jss-server-side`);
+//   if (ssStyles) {
+//     ssStyles.parentNode.removeChild(ssStyles);
+//   }
+// };
 
-// we use a common sheetsManager for all pages
-const sheetsManager = new Map();
+// export const wrapPageElement = ({ element }) => (
+//   <Layout>{element}</Layout>
+// );
 
-export const wrapRootElement = ({ element }) => (
-  <JssProvider generateClassName={createGenerateClassName()}>
-    <MuiRoot sheetsManager={sheetsManager}>
-      <ReduxProvider>{element}</ReduxProvider>
-    </MuiRoot>
-  </JssProvider>
-);
+// // we use a common sheetsManager for all pages
+// const sheetsManager = new Map();
+
+// export const wrapRootElement = ({ element }) => (
+//   <JssProvider generateClassName={createGenerateClassName()}>
+//     <MuiRoot sheetsManager={sheetsManager}>
+//       <ReduxProvider>{element}</ReduxProvider>
+//     </MuiRoot>
+//   </JssProvider>
+// );

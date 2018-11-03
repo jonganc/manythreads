@@ -10,12 +10,12 @@ import React from 'react';
 
 import muiTheme from '../../common/muiTheme';
 
-type SheetsManager = NonNullable<
+export type SheetsManager = NonNullable<
   MuiThemeProviderProps['sheetsManager']
 >;
 
 interface MuiRootProps {
-  sheetsManager?: SheetsManager;
+  sheetsManager: SheetsManager;
 }
 
 export default class MuiRoot extends React.Component<MuiRootProps> {
