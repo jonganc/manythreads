@@ -20,14 +20,19 @@ export const wrapPageElement = ({ element }) => (
   <Layout>{element}</Layout>
 );
 
-// we use a common sheetsManager for all pages
-const sheetsManager = new Map();
-const generateClassName = createGenerateClassName();
+export const wrapRootElement = ({ element }) => {
+  // we use a common sheetsManager for all pages
+  const generateClassName = createGenerateClassName();
+  const sheetsManager = new Map();
 
-export const wrapRootElement = ({ element }) => (
-  <JssProvider generateClassName={generateClassName}>
-    <MuiRoot sheetsManager={sheetsManager}>
-      <ReduxProvider>{element}</ReduxProvider>
-    </MuiRoot>
-  </JssProvider>
-);
+  return (
+    <JssProvider
+      generateClassName={generateClassName}
+      key={Math.random()}
+    >
+      <MuiRoot sheetsManager={sheetsManager}>
+        <ReduxProvider>{element}</ReduxProvider>
+      </MuiRoot>
+    </JssProvider>
+  );
+};

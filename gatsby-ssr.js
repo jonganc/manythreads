@@ -1,4 +1,3 @@
-import { createGenerateClassName } from '@material-ui/core/styles';
 import { SheetsRegistry } from 'jss';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -26,10 +25,11 @@ export const replaceRenderer = ({
   setHeadComponents,
 }) => {
   const sheetsRegistry = new SheetsRegistry();
+  const sheetsManager = new Map();
 
   const bodyHtml = renderToString(
     <JssProvider registry={sheetsRegistry}>
-      <MuiRoot sheetsManager={new Map()}>{bodyComponent}</MuiRoot>
+      <MuiRoot sheetsManager={sheetsManager}>{bodyComponent}</MuiRoot>
     </JssProvider>,
   );
 
