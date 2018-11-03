@@ -12,7 +12,6 @@ import Helmet from 'react-helmet';
 
 import { MarkdownRemark, Site } from '../common/graphql-types';
 import { PageProps } from '../common/types';
-import Layout from '../components/_all/Layout';
 import InvisibleLink from '../components/_common/InvisibleLink';
 import Bio from '../components/blog/_all/Bio';
 import BlogContent from '../components/blog/_all/BlogContent';
@@ -72,37 +71,32 @@ const BlogPost: React.SFC<BlogPostProps> = props => {
   const { classes } = props;
 
   return (
-    <Layout>
-      <BlogContent>
-        <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />{' '}
-        <div className={classes.root}>
-          <Typography variant="title" gutterBottom>
-            <InvisibleLink
-              to={'/'}
-              className={classes.topLinkToIndex}
-            >
-              <div className="leftChevron">&lsaquo;</div>
-              <div className="text">Index</div>
-            </InvisibleLink>
-          </Typography>
-          <Typography variant="display2" gutterBottom>
-            {post.frontmatter.title}
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            {post.frontmatter.date}
-          </Typography>
-          <Typography
-            variant="body1"
-            dangerouslySetInnerHTML={{ __html: post.html! }}
-            gutterBottom
-          />
-          <hr />
-          <Bio />
+    <BlogContent>
+      <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />{' '}
+      <div className={classes.root}>
+        <Typography variant="title" gutterBottom>
+          <InvisibleLink to={'/'} className={classes.topLinkToIndex}>
+            <div className="leftChevron">&lsaquo;</div>
+            <div className="text">Index</div>
+          </InvisibleLink>
+        </Typography>
+        <Typography variant="display2" gutterBottom>
+          {post.frontmatter.title}
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          {post.frontmatter.date}
+        </Typography>
+        <Typography
+          variant="body1"
+          dangerouslySetInnerHTML={{ __html: post.html! }}
+          gutterBottom
+        />
+        <hr />
+        <Bio />
 
-          <Navigation next={next} previous={previous} />
-        </div>
-      </BlogContent>
-    </Layout>
+        <Navigation next={next} previous={previous} />
+      </div>
+    </BlogContent>
   );
 };
 

@@ -5,12 +5,18 @@ import { renderToString } from 'react-dom/server';
 import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
-// import ReduxProvider from './src/components/_all/ReduxProvider';
+import Layout from './src/components/_all/Layout';
+import MuiRoot from './src/components/_all/MuiRoot';
+import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
 
-// export const wrapRootElement = ({ element }) => (
-//   <ReduxProvider>{element}</ReduxProvider>
-// );
+export const wrapPageElement = ({ element }) => (
+  <Layout>{element}</Layout>
+);
+
+export const wrapRootElement = ({ element }) => (
+  <ReduxProvider>{element}</ReduxProvider>
+);
 
 // material UI: adapted from https://github.com/mui-org/material-ui/tree/master/examples/gatsby
 
@@ -22,11 +28,8 @@ export const replaceRenderer = ({
   const sheetsRegistry = new SheetsRegistry();
 
   const bodyHtml = renderToString(
-    <JssProvider
-      registry={sheetsRegistry}
-      generateClassName={createGenerateClassName()}
-    >
-      {bodyComponent}
+    <JssProvider registry={sheetsRegistry}>
+      <MuiRoot sheetsManager={new Map()}>{bodyComponent}</MuiRoot>
     </JssProvider>,
   );
 

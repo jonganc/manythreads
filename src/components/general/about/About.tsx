@@ -13,6 +13,7 @@ import Helmet from 'react-helmet';
 
 import { Site } from '../../../common/graphql-types';
 import { PageProps } from '../../../common/types';
+import Link from '../../_common/Link';
 import Contact from './Contact';
 import SkillsItem from './SkillsItem';
 import TwoListCols from './TwoListCols';
@@ -72,7 +73,7 @@ const AboutType: React.SFC<TypographyProps> = props => (
 );
 
 const About: React.SFC<
-  WithStyles<typeof styles, true> & PageProps & AboutProps
+  WithStyles<typeof styles> & PageProps & AboutProps
 > = props => {
   const { classes, theme, data } = props;
 
