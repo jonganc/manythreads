@@ -10,7 +10,7 @@ import ReduxProvider from './src/components/_all/ReduxProvider';
 
 // gatsby-plugin-jss/src/gatsby-browser.js
 export const onInitialClientRender = () => {
-  const ssStyles = window.document.getElementById(`server-side-jss`);
+  const ssStyles = window.document.getElementById(`jss-server-side`);
   if (ssStyles) {
     ssStyles.parentNode.removeChild(ssStyles);
   }

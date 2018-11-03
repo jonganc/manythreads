@@ -10,6 +10,9 @@ const muiThemeOptions: ThemeOptions = {
       main: '#0e5663',
     },
   },
+  typography: {
+    useNextVariants: true,
+  },
 };
 
 export default createMuiTheme(muiThemeOptions);

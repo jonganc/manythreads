@@ -41,8 +41,8 @@ export const replaceRenderer = ({
   setHeadComponents([
     <style
       type="text/css"
-      id="server-side-jss"
-      key="server-side-jss"
+      id="jss-server-side"
+      key="jss-server-side"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: sheetsRegistry.toString(),
