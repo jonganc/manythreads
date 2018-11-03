@@ -5,9 +5,14 @@ import { renderToString } from 'react-dom/server';
 import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
+import Layout from './src/components/_all/Layout';
 import MuiRoot from './src/components/_all/MuiRoot';
 import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
+
+export const wrapPageElement = ({ element }) => (
+  <Layout>{element}</Layout>
+);
 
 export const wrapRootElement = ({ element }) => (
   <ReduxProvider>{element}</ReduxProvider>
@@ -23,10 +28,7 @@ export const replaceRenderer = ({
   const sheetsRegistry = new SheetsRegistry();
 
   const bodyHtml = renderToString(
-    <JssProvider
-      registry={sheetsRegistry}
-      generateClassName={createGenerateClassName()}
-    >
+    <JssProvider registry={sheetsRegistry}>
       <MuiRoot sheetsManager={new Map()}>{bodyComponent}</MuiRoot>
     </JssProvider>,
   );

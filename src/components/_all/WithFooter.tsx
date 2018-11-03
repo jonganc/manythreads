@@ -12,9 +12,9 @@ import Typography, {
 import * as Color from 'color';
 import React, { SFC } from 'react';
 
-import { colors } from '../../../common/theme';
-import { Omit } from '../../../common/types';
-import InvisibleA from '../../_common/InvisibleA';
+import { colors } from '../../common/theme';
+import { Omit } from '../../common/types';
+import InvisibleA from '../_common/InvisibleA';
 import GitHubSvg from './GitHubSvg';
 
 /* const footerColor = Color(colors.secondary2[0], 'rgb')
