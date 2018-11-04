@@ -1,5 +1,6 @@
 import { SheetsRegistry } from 'jss';
 import React from 'react';
+import { renderToString } from 'react-dom/server';
 import { JssProvider } from 'react-jss';
 
 /* eslint-disable import/no-unresolved */
@@ -8,27 +9,32 @@ import MuiRoot from './src/components/_all/MuiRoot';
 import ReduxProvider from './src/components/_all/ReduxProvider';
 /* eslint-enable import/no-unresolved */
 
-// making this global is a bit hacky but I don't know that there's another way to do it
-let sheetsRegistry;
-
 export const wrapPageElement = ({ element }) => (
   <Layout>{element}</Layout>
 );
 
-export const wrapRootElement = ({ element }) => {
-  sheetsRegistry = new SheetsRegistry();
+export const wrapRootElement = ({ element }) => (
+  <ReduxProvider>{element}</ReduxProvider>
+);
+
+// material UI: adapted from https://github.com/mui-org/material-ui/tree/master/examples/gatsby
+
+export const replaceRenderer = ({
+  bodyComponent,
+  replaceBodyHTMLString,
+  setHeadComponents,
+}) => {
+  const sheetsRegistry = new SheetsRegistry();
   const sheetsManager = new Map();
 
-  return (
+  const bodyHtml = renderToString(
     <JssProvider registry={sheetsRegistry}>
-      <MuiRoot sheetsManager={sheetsManager}>
-        <ReduxProvider>{element}</ReduxProvider>
-      </MuiRoot>
-    </JssProvider>
+      <MuiRoot sheetsManager={sheetsManager}>{bodyComponent}</MuiRoot>
+    </JssProvider>,
   );
-};
 
-export const onRenderBody = ({ setHeadComponents }) => {
+  replaceBodyHTMLString(bodyHtml);
+
   setHeadComponents([
     <style
       type="text/css"
