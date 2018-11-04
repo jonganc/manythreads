@@ -166,7 +166,7 @@ class Contact extends React.Component<ContactProps, ContactState> {
 
     const wrapContent = (children: React.ReactNode) => (
       <Paper className={classes.container}>
-        <Typography variant="display1">Contact me</Typography>
+        <Typography variant="h4">Contact me</Typography>
         {children}
       </Paper>
     );

@@ -14,13 +14,12 @@ let root;
 
 // gatsby-plugin-jss/src/gatsby-browser.js
 export const onInitialClientRender = () => {
-  // this is an unfortunate hack to account for issues with either Gatsby or Material UI and rendering. Without it, React does not seem to properly adopt the pre-rendered tree. in particular, the material UI classes from the server-side render simply aren't updated.
   const ssStyles = window.document.getElementById(`jss-server-side`);
   if (ssStyles) {
     ssStyles.parentNode.removeChild(ssStyles);
   }
 
-  ReactDOM.unmountComponentAtNode(gatsbyRoot);
+  // this is an unfortunate hack to account for issues with either Gatsby or Material UI and rendering. Without it, React does not seem to properly adopt the pre-rendered tree. in particular, the material UI classes from the server-side render simply aren't updated.
   ReactDOM.hydrate(root, gatsbyRoot);
 };
 

@@ -67,13 +67,13 @@ export interface AboutProps {
 }
 
 const AboutType: React.SFC<TypographyProps> = props => (
-  <Typography variant="subheading" gutterBottom {...props}>
+  <Typography variant="subtitle1" gutterBottom {...props}>
     {props.children}
   </Typography>
 );
 
 const About: React.SFC<
-  WithStyles<typeof styles> & PageProps & AboutProps
+  WithStyles<typeof styles, true> & PageProps & AboutProps
 > = props => {
   const { classes, theme, data } = props;
 
@@ -84,7 +84,7 @@ const About: React.SFC<
       <div className={classes.root}>
         <div className={classes.gutters}>
           <div className={classes.section}>
-            <Typography variant="display1" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               General
             </Typography>
             <div className={classes.aboutWrapper}>

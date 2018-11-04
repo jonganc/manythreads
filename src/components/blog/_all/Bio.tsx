@@ -38,7 +38,7 @@ class Bio extends React.Component<WithStyles<typeof styles>> {
           alt={`Jonathan Ganc`}
           className={classes.profilePic}
         />
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           A blog about web development, with a back end focus, written
           by <strong>Jonathan Ganc</strong>
         </Typography>

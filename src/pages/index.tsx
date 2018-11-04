@@ -61,7 +61,7 @@ class BlogIndex extends React.Component<
           }}
         >
           <Helmet title={siteTitle} />
-          <Typography variant="display2" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             Blog
           </Typography>
           <Bio />
@@ -80,7 +80,7 @@ class BlogIndex extends React.Component<
             const title = node.frontmatter.title || slug;
             return (
               <div key={slug} className={classes.post}>
-                <Typography variant="headline">
+                <Typography variant="h5">
                   <InvisibleLink
                     className={classes.postTitle}
                     to={slug}
@@ -89,13 +89,13 @@ class BlogIndex extends React.Component<
                     {title}
                   </InvisibleLink>
                 </Typography>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="tobody2" gutterBottom>
                   <span className={classes.date}>
                     {node.frontmatter.date}
                   </span>
                 </Typography>
                 <Typography
-                  variant="subheading"
+                  variant="subtitle1"
                   gutterBottom
                   dangerouslySetInnerHTML={{
                     __html: defaultTo(node.excerpt, ''),

@@ -21,7 +21,7 @@ const styles = createStyles({
 });
 
 const NavigationLink: SFC<GatsbyLinkProps> = props => (
-  <Typography variant="subheading">
+  <Typography variant="subtitle1">
     <InvisibleLink allowProperty="color" {...props} />
   </Typography>
 );

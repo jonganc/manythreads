@@ -80,14 +80,14 @@ const BlogPost: React.SFC<BlogPostProps> = props => {
             <div className="text">Index</div>
           </InvisibleLink>
         </Typography>
-        <Typography variant="display2" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           {post.frontmatter.title}
         </Typography>
-        <Typography variant="body2" gutterBottom>
+        <Typography variant="body1" gutterBottom>
           {post.frontmatter.date}
         </Typography>
         <Typography
-          variant="body1"
+          variant="body2"
           dangerouslySetInnerHTML={{ __html: post.html! }}
           gutterBottom
         />
