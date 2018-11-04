@@ -26,10 +26,7 @@ export default class MuiRoot extends React.Component<MuiRootProps> {
   render() {
     // MuiThemeProvider makes the theme available down the React tree thanks to React context.
     return (
-      <MuiThemeProvider
-        theme={muiTheme}
-        sheetsManager={this.props.sheetsManager}
-      >
+      <MuiThemeProvider theme={muiTheme}>
         {/* CssBaseline kickstarts an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         {this.props.children}
