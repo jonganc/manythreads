@@ -35,7 +35,6 @@ export const wrapRootElement = ({ element }) => {
       generateClassName={
         global.__INIT_MATERIAL_UI__.generateClassName
       }
-      key={Math.random()}
     >
       <MuiRoot
         sheetsManager={global.__INIT_MATERIAL_UI__.sheetsManager}
