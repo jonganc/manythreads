@@ -1,0 +1,450 @@
+(progn
+  (define-key org-mode-map [?\H-j] #'eval-print-last-sexp)
+  (define-key emacs-lisp-mode-map [?\H-j] #'eval-print-last-sexp)
+)
+
+* Lists are at the heart of lisp
+
+Lists are essential to Emacs
+
+E.g.
+
+- customizing variables
+
+- writing functions
+
+- debugging problem
+
+* List essentials
+
+Ways to create a list:
+
+** way 1
+
+Using =list=
+
+=(list 1 2 3)=
+
+** way 2
+
+Using =quote=
+
+='(1 2 3)=
+
+** way 3
+
+Using =cons=
+
+=(cons 1 (cons 2 (cons 3 nil)))=
+
+** way 4
+
+Using quoted =cons= cells
+='(1 . (2 . (3 . nil)))=
+
+** ...
+
+And probably 100 other ways too
+
+* What makes up a lisp list? Conses
+
+- Lisp lists are /singly linked lists/
+
+- Lists are made of /cons/ cells, a primitive type in lisp.
+
+       a cons
+     ___________
+    |     |     |
+    | car | cdr |
+    |_____|_____|
+
+- Cons notation
+
+  ='(car . cdr)=
+
+  Not: 
+
+  ='(val1 val2)
+
+** making, accessing cons parts
+
+We can also make conses via:
+#+BEGIN_SRC emacs-lisp
+  (cons 'val1 'val2)
+#+END_SRC
+
+To access parts, we have the =car=, =cdr= functions:
+
+#+BEGIN_SRC emacs-lisp
+  (car '(1 . 2))
+  (cdr '(1 . 2))
+#+END_SRC
+
+* What is a list?
+
+*** Make the =cdr= of one =cons= another cons: 
+       ________________________
+      |      |                 |
+      |      |      cdr1       |
+      |      |  _____________  |
+      | car1 | |      |      | |
+      |      | | car2 | cdr2 | |
+      |      | |______|______| |
+      |______|_________________|
+
+**** Do this for an extended number of conses:
+
+  #+BEGIN_SRC emacs-lisp
+    (let*
+        ((cons1 `(1 . nil))
+         (cons2 `(2 . ,cons1))
+         (cons3 `(3 . ,cons2)))
+      cons3)
+  #+END_SRC
+
+**** so...
+
+A string of linked =conses= is a list!
+
+**** Equivalently:
+
+#+BEGIN_SRC emacs-lisp
+  '(3 . (2 . (1 . nil)))
+  (list 3 2 1)
+#+END_SRC
+
+* my first list manipulation
+
+We can change the car or cdr of a cons with the =setcar=, =setcdr= functions:
+
+#+BEGIN_SRC emacs-lisp
+  (let ((cons1 '(1 . 2)))
+    (setcar cons1 3)
+    cons1)
+#+END_SRC
+or
+#+BEGIN_SRC emacs-lisp
+  (let ((cons1 '(1 . 2)))
+    (setcdr cons1 3)
+    cons1)
+#+END_SRC
+
+** adding to list
+
+=add-to-list= can add to the beginning (or end) of a list if not present
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '(1 2 3)))
+    (add-to-list 'l 4))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '(1 2 3)))
+    (add-to-list 'l 4 t))
+#+END_SRC
+
+** important point: conses are copied by reference
+
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((cons1 '(1 . 2))
+       (cons2 cons1))
+    (setcar cons1 3)
+    cons2)
+#+END_SRC
+
+Therefore, *so are lists*
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '(1 2 3))
+       (list2 list1))
+    (setcar list1 4)
+    list2)
+#+END_SRC
+
+** accessing list elements
+
+We could access list elements as cons cells:
+
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '(1 2 3 4)))
+    (car (cdr (cdr list1))))
+#+END_SRC
+
+But this is annoying. We can also use the =nth= function:
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '(1 2 3 4)))
+    (nth 2 list1))
+#+END_SRC
+
+** more advanced list manipulation
+
+*** editing a list without affecting original list
+
+We can do a deep copy of a via =copy-tree=:
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '((1 2) 3))
+       (list2 (copy-tree list1)))
+    (setcar (car list2) 4)
+    (list list1 list2))
+#+END_SRC
+
+*** making a shallow copy of a list
+
+We can make a shallow copy via =copy-sequence=
+
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '(1 2 3))
+       (list2 (copy-sequence list1)))
+    (setcar list1 4)
+    (list list1 list2))
+#+END_SRC
+
+* setting an arbitrary element
+
+Thanks to relatively recent generalized functions, it's become quite easy to set arbitrary list elements:
+
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '(1 2 3 4)))
+    (setf (nth 2 list1) 5)
+    list1)
+#+END_SRC
+
+** or deeper
+
+#+BEGIN_SRC emacs-lisp
+  (let*
+      ((list1 '(1 2 3 (4 5))))
+    (setf (nth 1 (nth 3 list1)) 6)
+    list1)
+#+END_SRC
+
+* seq functions
+
+Emacs 25 includes the seq library by Nicolas Petton.
+
+See: https://www.gnu.org/software/emacs/manual/html_node/elisp/Sequence-Functions.html
+
+Has a lot of useful functions, including for functional programming. A bunch of function prefixed by =seq-...=. Some examples
+
+** seq-drop
+
+Returns a sequence of all but first =n= elements
+
+=seq-drop= seq n
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '(1 2 3 4 5)))
+    (seq-drop l 2))
+#+END_SRC
+
+** seq-drop-while
+
+=seq-drop-while= pred seq
+
+This function returns a sub-sequence of seq from the first element for which calling pred with that element returns nil
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '(2 4 5 6 7)))
+    (seq-drop-while #'evenp l))
+#+END_SRC
+
+** seq-filter
+
+=seq-filter= pred seq
+
+Returns a list of all elements for which calling pred with that element returns non-nil
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '(2 4 5 6 7)))
+    (seq-filter #'evenp l))
+#+END_SRC
+
+** seq-map
+
+=seq-map= function seq
+
+Returns a list from applying =function= to each element of =seq=
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '(2 4 5 6 7)))
+    (seq-map #'evenp l))
+#+END_SRC
+
+** seq-do
+
+=seq-do= function seq
+
+Apply =function= to each element of =seq=, for side effect
+
+#+BEGIN_SRC emacs-lisp
+  (let ((l '("a" "b")))
+    (seq-do #'insert l))
+#+END_SRC
+
+** seq-set-equal-p
+
+=seq-set-equal-p= seq1 seq2 &optional testfn
+
+Do =seq1=, =seq2= contain the same elements, regardless of order?
+
+#+BEGIN_SRC emacs-lisp
+  (seq-set-equal-p '(a b c) '(c b a))
+#+END_SRC
+
+** seq-different
+
+=seq-different= seq1 seq2 &optional function
+
+Return a list of elements in =seq1= but not =seq2
+
+#+BEGIN_SRC emacs-lisp
+  (seq-difference '(2 3 4 5) [1 3 5 6 7])
+#+END_SRC
+
+** seq-max
+
+=seq-max= seq
+
+Gives the largest element of a numerical sequence
+
+#+BEGIN_SRC emacs-lisp
+  (seq-max '(1 3 2))
+#+END_SRC
+
+- some others:
+=seq-reduce= like reduce in map-reduce
+=seq-every-p= non-nil if applying predicate to every element is non-nil
+=seq-sort=
+
+* dash
+
+Dash is a list manipulation library by Magnar Sveen. It has a monstrous number of functions. It seems to have lost some popularity to =seq=.
+
+* extra topics
+
+** association list
+
+Association lists or /alist/'s, are the way of constructing maps in Elisp. 
+
+< or hashes or dictionaries
+
+They show up in a lot of variables or can be used in your functions.
+
+The basic syntax is
+#+BEGIN_SRC emacs-lisp
+  '((KEY1 . VALUE1)
+    (KEY2 . VALUE2)
+    ...)
+#+END_SRC
+
+An example:
+#+BEGIN_SRC emacs-lisp
+  '((pine . cones)
+    (oak . acorns)
+    (maple . seeds)) 
+#+END_SRC
+
+*** accessing values
+
+We use =assoc=
+
+=assoc= key alist &optional testfn
+
+#+BEGIN_SRC emacs-lisp
+  (setq trees '((pine . cones) (oak . acorns) (maple . seeds)))
+  (assoc 'oak trees)
+#+END_SRC
+
+The response is the association itself.
+
+#+BEGIN_SRC emacs-lisp
+  (cdr (assoc 'oak trees))
+#+END_SRC
+
+**** alist-get
+
+Or we can directly get the value
+
+#+BEGIN_SRC emacs-lisp
+  (alist-get 'oak trees)
+#+END_SRC
+
+This can be used as a generalized variable
+
+#+BEGIN_SRC emacs-lisp
+  (setf (alist-get 'oak trees) 'more-acorns)
+  (alist-get 'oak trees)
+#+END_SRC
+
+**** if key is missing
+
+#+BEGIN_SRC emacs-lisp
+  (assoc 'birch trees)
+#+END_SRC
+
+*** extended values
+
+Note that the values can be anything, including a list:
+#+BEGIN_SRC emacs-lisp
+  `((rose red) (lily white) (buttercup yellow))
+#+END_SRC
+(which is equivalent to =`((rose . (red)) (lily . (white)) (buttercup . (yellow)))=)
+
+** sequences
+
+Technically, lists can be viewed as one of two types of sequences, the others being arrays:
+
+               _____________________________________________
+              |                                             |
+              |          Sequence                           |
+              |  ______   ________________________________  |
+              | |      | |                                | |
+              | | List | |             Array              | |
+              | |      | |    ________       ________     | |
+              | |______| |   |        |     |        |    | |
+              |          |   | Vector |     | String |    | |
+              |          |   |________|     |________|    | |
+              |          |  ____________   _____________  | |
+              |          | |            | |             | | |
+              |          | | Char-table | | Bool-vector | | |
+              |          | |____________| |_____________| | |
+              |          |________________________________| |
+              |_____________________________________________|
+
+seq obviously works on any of these.
+
+*** vectors
+
+vectors use the syntax =[1 2 acb]=
+
+They do not have to be quoted
+
+*** strings
+
+are defined with double qoutes, e.g. ="abcf"=
+
+*** char tables
+
+something like a hash/map, which maps character codes to values, used, e.g. in keymaps
+
+*** bool-vector
+
+a bit obscure. like a vector but can only hold =t= and =nil=
+
+* summary
+
+- Emacs lists are just linked lists of cons cells
+
+- There are many different functions for accessing and manipulating lists, like =nth=.
+
+- Generally, lists are copied by reference, so make a copy of the list using =copy-tree= or =copy-sequence= if you don't want to edit the originals
+
+- To edit list elements, you can use the list access methods along with the generalized set function =setf=
+
+- For functional programming needs, the =seq-...= functions were added to Emacs
